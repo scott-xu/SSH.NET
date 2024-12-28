@@ -57,13 +57,13 @@ namespace Renci.SshNet
                             cipher = new CipherInfo(192, (key, iv) => new TripleDesCipher(key, iv, CipherMode.CFB, pkcs7Padding: false));
                             break;
                         case "AES-128-CBC":
-                            cipher = new CipherInfo(128, (key, iv) => new AesCipher(key, iv, AesCipherMode.CBC, pkcs7Padding: true));
+                            cipher = new CipherInfo(128, (key, iv) => new AesCipher(key, iv, CipherMode.CBC, pkcs7Padding: true));
                             break;
                         case "AES-192-CBC":
-                            cipher = new CipherInfo(192, (key, iv) => new AesCipher(key, iv, AesCipherMode.CBC, pkcs7Padding: true));
+                            cipher = new CipherInfo(192, (key, iv) => new AesCipher(key, iv, CipherMode.CBC, pkcs7Padding: true));
                             break;
                         case "AES-256-CBC":
-                            cipher = new CipherInfo(256, (key, iv) => new AesCipher(key, iv, AesCipherMode.CBC, pkcs7Padding: true));
+                            cipher = new CipherInfo(256, (key, iv) => new AesCipher(key, iv, CipherMode.CBC, pkcs7Padding: true));
                             break;
                         default:
                             throw new SshException(string.Format(CultureInfo.InvariantCulture, "Private key cipher \"{0}\" is not supported.", _cipherName));

@@ -14,6 +14,8 @@ using Renci.SshNet.Common;
 using Renci.SshNet.Security;
 using Renci.SshNet.Security.Cryptography.Ciphers;
 
+using CipherMode = System.Security.Cryptography.CipherMode;
+
 namespace Renci.SshNet
 {
     public partial class PrivateKeyFile
@@ -111,7 +113,7 @@ namespace Renci.SshNet
                                 throw new SshException("PuTTY key file version " + _version + " is not supported");
                         }
 
-                        using (var cipher = new AesCipher(cipherKey, cipherIV, AesCipherMode.CBC, pkcs7Padding: false))
+                        using (var cipher = new AesCipher(cipherKey, cipherIV, CipherMode.CBC, pkcs7Padding: false))
                         {
                             privateKey = cipher.Decrypt(_data);
                         }
