@@ -448,6 +448,11 @@ namespace Renci.SshNet
         internal event EventHandler<MessageEventArgs<KeyExchangeEcdhReplyMessage>> KeyExchangeEcdhReplyMessageReceived;
 
         /// <summary>
+        /// Occurs when a <see cref="KeyExchangeHybridReplyMessage"/> message is received from the SSH server.
+        /// </summary>
+        internal event EventHandler<MessageEventArgs<KeyExchangeHybridReplyMessage>> KeyExchangeHybridReplyMessageReceived;
+
+        /// <summary>
         /// Occurs when <see cref="NewKeysMessage"/> message received
         /// </summary>
         internal event EventHandler<MessageEventArgs<NewKeysMessage>> NewKeysReceived;
@@ -1533,6 +1538,11 @@ namespace Renci.SshNet
         internal void OnKeyExchangeEcdhReplyMessageReceived(KeyExchangeEcdhReplyMessage message)
         {
             KeyExchangeEcdhReplyMessageReceived?.Invoke(this, new MessageEventArgs<KeyExchangeEcdhReplyMessage>(message));
+        }
+
+        internal void OnKeyExchangeHybridReplyMessageReceived(KeyExchangeHybridReplyMessage message)
+        {
+            KeyExchangeHybridReplyMessageReceived?.Invoke(this, new MessageEventArgs<KeyExchangeHybridReplyMessage>(message));
         }
 
         /// <summary>

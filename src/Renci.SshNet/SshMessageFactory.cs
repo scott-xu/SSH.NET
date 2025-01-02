@@ -52,7 +52,8 @@ namespace Renci.SshNet
                 new MessageMetadata<KeyExchangeDhGroupExchangeGroup>(28, "SSH_MSG_KEX_DH_GEX_GROUP", 31),
                 new MessageMetadata<KeyExchangeDhReplyMessage>(29, "SSH_MSG_KEXDH_REPLY", 31),
                 new MessageMetadata<KeyExchangeDhGroupExchangeReply>(30, "SSH_MSG_KEX_DH_GEX_REPLY", 33),
-                new MessageMetadata<KeyExchangeEcdhReplyMessage>(31, "SSH_MSG_KEX_ECDH_REPLY", 31)
+                new MessageMetadata<KeyExchangeEcdhReplyMessage>(31, "SSH_MSG_KEX_ECDH_REPLY", 31),
+                new MessageMetadata<KeyExchangeHybridReplyMessage>(32, "SSH_MSG_KEX_HYBRID_REPLY", 31)
             };
         private static readonly Dictionary<string, MessageMetadata> MessagesByName = CreateMessagesByNameMapping();
 
@@ -64,7 +65,7 @@ namespace Renci.SshNet
         /// <summary>
         /// Defines the total number of supported messages.
         /// </summary>
-        internal const int TotalMessageCount = 32;
+        internal const int TotalMessageCount = 33;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SshMessageFactory"/> class.
