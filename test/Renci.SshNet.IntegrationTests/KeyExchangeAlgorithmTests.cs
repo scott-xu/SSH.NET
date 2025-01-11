@@ -23,7 +23,6 @@ namespace Renci.SshNet.IntegrationTests
         }
 
         [TestMethod]
-        [Ignore]
         public void MLKem768X25519Sha256()
         {
             _remoteSshdConfig.ClearKeyExchangeAlgorithms()
@@ -39,7 +38,6 @@ namespace Renci.SshNet.IntegrationTests
         }
 
         [TestMethod]
-        [Ignore]
         public void SNtruP761X25519Sha512()
         {
             _remoteSshdConfig.ClearKeyExchangeAlgorithms()
