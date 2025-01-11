@@ -75,7 +75,7 @@ namespace Renci.SshNet.Security
 
             HandleServerEcdhReply(message.KS, message.QS, message.Signature);
 
-            // When SSH_MSG_KEXDH_REPLY received key exchange is completed
+            // When SSH_MSG_KEX_ECDH_REPLY received key exchange is completed
             Finish();
         }
 
