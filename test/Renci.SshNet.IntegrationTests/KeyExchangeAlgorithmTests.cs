@@ -23,7 +23,21 @@ namespace Renci.SshNet.IntegrationTests
         }
 
         [TestMethod]
-        [Ignore]
+        public void MLKem768X25519Sha256()
+        {
+            _remoteSshdConfig.ClearKeyExchangeAlgorithms()
+                             .AddKeyExchangeAlgorithm(KeyExchangeAlgorithm.MLKem768X25519Sha256)
+                             .Update()
+                             .Restart();
+
+            using (var client = new SshClient(_connectionInfoFactory.Create()))
+            {
+                client.Connect();
+                client.Disconnect();
+            }
+        }
+
+        [TestMethod]
         public void SNtruP761X25519Sha512()
         {
             _remoteSshdConfig.ClearKeyExchangeAlgorithms()

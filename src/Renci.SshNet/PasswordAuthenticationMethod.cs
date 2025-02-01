@@ -13,7 +13,7 @@ namespace Renci.SshNet
     /// <summary>
     /// Provides functionality to perform password authentication.
     /// </summary>
-    public class PasswordAuthenticationMethod : AuthenticationMethod, IDisposable
+    public class PasswordAuthenticationMethod : AuthenticationMethod
     {
         private readonly RequestMessagePassword _requestMessage;
         private readonly byte[] _password;
@@ -163,20 +163,8 @@ namespace Renci.SshNet
             });
         }
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="disposing"><see langword="true"/> to release both managed and unmanaged resources; <see langword="false"/> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool disposing)
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
         {
             if (_isDisposed)
             {
@@ -194,6 +182,8 @@ namespace Renci.SshNet
 
                 _isDisposed = true;
             }
+
+            base.Dispose(disposing);
         }
     }
 }

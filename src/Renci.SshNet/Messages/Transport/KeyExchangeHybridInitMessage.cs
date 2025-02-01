@@ -3,16 +3,16 @@
 namespace Renci.SshNet.Messages.Transport
 {
     /// <summary>
-    /// Represents SSH_MSG_KEX_ECDH_INIT message.
+    /// Represents SSH_MSG_KEX_HYBRID_INIT message.
     /// </summary>
-    internal sealed class KeyExchangeEcdhInitMessage : Message, IKeyExchangedAllowed
+    internal sealed class KeyExchangeHybridInitMessage : Message, IKeyExchangedAllowed
     {
         /// <inheritdoc />
         public override string MessageName
         {
             get
             {
-                return "SSH_MSG_KEX_ECDH_INIT";
+                return "SSH_MSG_KEX_HYBRID_INIT";
             }
         }
 
@@ -26,9 +26,15 @@ namespace Renci.SshNet.Messages.Transport
         }
 
         /// <summary>
-        /// Gets the client's ephemeral contribution to the ECDH exchange, encoded as an octet string.
+        /// Gets the client init data.
         /// </summary>
-        public byte[] QC { get; private set; }
+        /// <remarks>
+        /// The init data is the concatenation of C_PK2 and C_PK1 (C_INIT = C_PK2 || C_PK1, where || depicts concatenation).
+        /// C_PK1 and C_PK2 represent the ephemeral client public keys used for each key exchange of the PQ/T Hybrid mechanism.
+        /// Typically, C_PK1 represents a traditional / classical (i.e., ECDH) key exchange public key.
+        /// C_PK2 represents the 'pk' output of the corresponding post-quantum KEM's 'KeyGen' at the client.
+        /// </remarks>
+        public byte[] CInit { get; private set; }
 
         /// <summary>
         /// Gets the size of the message in bytes.
@@ -41,18 +47,18 @@ namespace Renci.SshNet.Messages.Transport
             get
             {
                 var capacity = base.BufferCapacity;
-                capacity += 4; // QC length
-                capacity += QC.Length; // QC
+                capacity += 4; // CInit length
+                capacity += CInit.Length; // CInit
                 return capacity;
             }
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyExchangeEcdhInitMessage"/> class.
+        /// Initializes a new instance of the <see cref="KeyExchangeHybridInitMessage"/> class.
         /// </summary>
-        public KeyExchangeEcdhInitMessage(byte[] q)
+        public KeyExchangeHybridInitMessage(byte[] init)
         {
-            QC = q;
+            CInit = init;
         }
 
         /// <summary>
@@ -60,7 +66,7 @@ namespace Renci.SshNet.Messages.Transport
         /// </summary>
         protected override void LoadData()
         {
-            QC = ReadBinary();
+            CInit = ReadBinary();
         }
 
         /// <summary>
@@ -68,7 +74,7 @@ namespace Renci.SshNet.Messages.Transport
         /// </summary>
         protected override void SaveData()
         {
-            WriteBinaryString(QC);
+            WriteBinaryString(CInit);
         }
 
         internal override void Process(Session session)
