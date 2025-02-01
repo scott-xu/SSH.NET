@@ -363,6 +363,8 @@ namespace Renci.SshNet.Tests.Classes
         [DataRow("Key.RSA.txt", null, typeof(RsaKey))]
         [DataRow("Key.SSH2.RSA.Encrypted.Des.CBC.12345.txt", "12345", typeof(RsaKey))]
         [DataRow("Key.SSH2.RSA.txt", null, typeof(RsaKey))]
+        [DataRow("Key.VShell.RSA.txt", null, typeof(RsaKey))]
+        [DataRow("Key.VShell.ECDSA.txt", null, typeof(EcdsaKey))]
         public void Test_PrivateKey(string name, string passPhrase, Type expectedKeyType)
         {
             using (var stream = GetData(name))
